@@ -1,0 +1,36 @@
+﻿@model gcutech.Models.User
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model._fullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._fullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._credentials._userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._credentials._userName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
