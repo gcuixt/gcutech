@@ -21,12 +21,13 @@ namespace gcutech.Service.Data
         {
             try
             {
-                string queryString = String.Format("INSERT INTO [dbo].[user] ([FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD]) VALUES ('{0}', '{1}', '{2}', '{3}')",
+                string queryString = String.Format("INSERT INTO [gcuixt].[dbo].[user] ([FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD]) VALUES ('{0}', '{1}', '{2}', '{3}')",
                     model._fullName,
                     model._email,
                     model._credentials._userName,
                     model._credentials._password);
-                string connectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
+                string connectionString = "Data Source=DESKTOP-98ADUJO;Database=gcuixt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                //string connectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
 
                 using(SqlConnection connection = new SqlConnection(connectionString))
                 {
