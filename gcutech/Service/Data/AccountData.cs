@@ -193,6 +193,7 @@ namespace gcutech.Service.Data
                     command.Parameters.Add("@email", SqlDbType.NVarChar, 100).Value = model._email;
                     command.Parameters.Add("@username", SqlDbType.NVarChar, 20).Value = model._credentials._userName;
                     command.Parameters.Add("@password", SqlDbType.NVarChar, 64).Value = model._credentials._password;
+                    command.Parameters.Add("@userid", SqlDbType.Int).Value = model._userId;
 
                     //Open the connection
                     connection.Open();

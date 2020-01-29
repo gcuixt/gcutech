@@ -31,6 +31,18 @@ namespace gcutech.Controllers
             return View();
         }
 
+        public ViewResult AccountInfo()
+        {
+            User principal = (User)HttpContext.Session["principal"];
+            return View(principal);
+        }
+
+        public ViewResult Update()
+        {
+            User principal = (User)HttpContext.Session["principal"];
+            return View(principal);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult OnRegister(User user)
@@ -66,8 +78,9 @@ namespace gcutech.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            catch (AuthenticationFailedException e)
+            catch(Exception e)
             {
+                //TODO log this message and all others.
                 var logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()
                     .WriteTo.File("~/logs/logs.txt")
@@ -76,36 +89,50 @@ namespace gcutech.Controllers
                 logger.Information(e.Message);
                 return RedirectToAction("Login");
             }
-            catch(RecordNotFoundException e)
-            {
-                var logger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
-                    .WriteTo.File("~/logs/logs.txt")
-                    .CreateLogger();
 
-                logger.Information(e.Message);
-                ViewBag.ErrorMessage = "User does not exist.";
-                return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ViewResult OnUpdate(User user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View("Update");
+                }
+
+                _accountService.ProcessUpdate(user);
+
+                HttpContext.Session.Remove("principal");
+                HttpContext.Session.Add("principal", user);
+
+                return View("AccountInfo", user);
+            }catch(Exception e)
+            {
+                return View("Update");
+            }
+
+            
+        }
+
+        public ActionResult OnDelete()
+        {
+            User principal = (User)HttpContext.Session["principal"];
+
+            try
+            {
+                _accountService.ProcessDelete(principal);
+                HttpContext.Session.Clear();
+                return View("~/Views/Home/Index.cshtml");
             }
             catch(Exception e)
             {
-                var logger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
-                    .WriteTo.File("~/logs/logs.txt")
-                    .CreateLogger();
-
-                logger.Information(e.Message);
-                return RedirectToAction("Login");
+                return View("AccountInfo", principal);
             }
-
         }
 
-
-        public ViewResult AccountInfo()
-        {
-            User principal = (User) HttpContext.Session["principal"];
-            return View(principal);
-        }
         public RedirectToRouteResult OnLogout()
         {
             HttpContext.Session.Clear();
