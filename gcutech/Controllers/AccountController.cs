@@ -33,28 +33,22 @@ namespace gcutech.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public RedirectToRouteResult OnRegister(User user)
+        public ActionResult OnRegister(User user)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return RedirectToAction("Register");
+                    return View("Register");
                 }
                 _accountService.RegisterUser(user);
 
-                return RedirectToAction("Index", "Home");
+                return View("~/Views/Home/Index.cshtml");
             }catch(Exception e)
             {
-                var logger = new LoggerConfiguration()
-                    .MinimumLevel.Debug()
-                    .WriteTo.File("~/logs/logs.txt")
-                    .CreateLogger();
+                Console.WriteLine(e.Message);
 
-                logger.Information(e.Message);
-
-                //TODO MAKE SURE THIS ISN'T A 302 REDIRECT
-                return RedirectToAction("Register");
+                return View("Register");
             }
            
         }

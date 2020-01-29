@@ -27,14 +27,13 @@ namespace gcutech.Service.Data
                 {
 
                     command.CommandText = @"INSERT INTO [gcuixt].[dbo].[user] " +
-                    "([FULL_NAME], [EMAIL], [STUDENT_ID], [USER_NAME], [PASSWORD]) " +
-                    "VALUES (:fullname, :email, :studentid, :username, :password)";
+                    "([FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD]) " +
+                    "VALUES (@fullname, @email, @username, @password)";
 
-                    command.Parameters.Add(":fullname", SqlDbType.NVarChar, 50).Value = model._fullName;
-                    command.Parameters.Add(":email", SqlDbType.NVarChar, 100).Value = model._email;
-                    command.Parameters.Add(":studentid", SqlDbType.Int).Value = model._studentID;
-                    command.Parameters.Add(":username", SqlDbType.NVarChar, 20).Value = model._credentials._userName;
-                    command.Parameters.Add(":password", SqlDbType.NVarChar, 64).Value = model._credentials._password;
+                    command.Parameters.Add("@fullname", SqlDbType.NVarChar, 50).Value = model._fullName;
+                    command.Parameters.Add("@email", SqlDbType.NVarChar, 100).Value = model._email;
+                    command.Parameters.Add("@username", SqlDbType.NVarChar, 20).Value = model._credentials._userName;
+                    command.Parameters.Add("@password", SqlDbType.NVarChar, 64).Value = model._credentials._password;
 
                     connection.Open();
 
@@ -63,20 +62,16 @@ namespace gcutech.Service.Data
         {
             User temp = new User();
             try
-            {
-                string queryString = String.Format("SELECT [USER_ID], " +
-                    "[FULL_NAME], " +
-                    "[EMAIL], " +
-                    "[USER_NAME], " +
-                    "[STUDENT_ID]" +
-                    "[PASSWORD] " +
-                    "FROM [gcuixt].[dbo].[user] " +
-                    "WHERE [USER_NAME] = '{0}'",
-                    model._userName);
-
+            { 
                 using (SqlConnection connection = _connectionData.GetConnection())
+                using(SqlCommand command = connection.CreateCommand())
                 {
-                    SqlCommand command = new SqlCommand(queryString, connection);
+                    command.CommandText = @"select [USER_ID],[FULL_NAME],[EMAIL],[USER_NAME],[PASSWORD],[ADMIN_LEVEL],[ADMIN_TITLE] " +
+                       "from[gcuixt].[dbo].[user]" +
+                       "inner join[gcuixt].[dbo].[admin] on[gcuixt].[dbo].[user].[ADMIN_ID] = [gcuixt].[dbo].[admin].[ADMIN_ID]" +
+                       "where[gcuixt].[dbo].[user].[USER_NAME] = @username";
+
+                    command.Parameters.Add("@username", SqlDbType.NVarChar, 20).Value = model._userName;
 
                     connection.Open();
 
@@ -85,12 +80,13 @@ namespace gcutech.Service.Data
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         
-                            reader.Read();
-                            temp._userId = reader.GetInt32(0);
-                            temp._fullName = reader.GetString(1);
-                            temp._email = reader.GetString(2);
-                            temp._studentID = reader.GetInt32(3);
-                            temp._credentials = new Credentials(reader.GetString(4), reader.GetString(5));
+                        reader.Read();
+                        temp._userId = reader.GetInt32(0);
+                        temp._fullName = reader.GetString(1);
+                        temp._email = reader.GetString(2);
+                        temp._credentials = new Credentials(reader.GetString(3), reader.GetString(4));
+                        temp._adminLevel = reader.GetInt32(5);
+                        temp._admin_Title = reader.GetString(6);
 
                             reader.Close();
                             

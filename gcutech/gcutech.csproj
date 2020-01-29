@@ -160,7 +160,6 @@
     <Content Include="Content\metro.css" />
     <Content Include="Content\metro.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="logs\logs.txt" />
     <Content Include="mif\metro.svg" />
     <Content Include="mif\metro.woff" />
     <Content Include="mif\metro.ttf" />
