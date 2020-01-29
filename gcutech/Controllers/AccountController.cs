@@ -66,7 +66,7 @@ namespace gcutech.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            catch (LoginFailedException e)
+            catch (AuthenticationFailedException e)
             {
                 var logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()

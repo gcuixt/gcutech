@@ -264,9 +264,11 @@
     <Compile Include="Service\Business\AccountBusiness.cs" />
     <Compile Include="Service\Business\IAccountBusiness.cs" />
     <Compile Include="Service\Data\AccountData.cs" />
+    <Compile Include="Service\Exceptions\UpdateFailedException.cs" />
+    <Compile Include="Service\Exceptions\DeleteFailedException.cs" />
     <Compile Include="Service\Exceptions\RecordNotFoundException.cs" />
-    <Compile Include="Service\Exceptions\LoginFailedException.cs" />
-    <Compile Include="Service\Exceptions\AccountRegisrationFailedException.cs" />
+    <Compile Include="Service\Exceptions\AuthenticationFailedException.cs" />
+    <Compile Include="Service\Exceptions\RegisrationFailedException.cs" />
     <Compile Include="Service\Data\ConnectionData.cs" />
     <Compile Include="Service\Data\ICrud.cs" />
   </ItemGroup>
