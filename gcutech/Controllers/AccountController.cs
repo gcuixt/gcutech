@@ -2,11 +2,13 @@
 using gcutech.Service.Business;
 using gcutech.Service.Exceptions;
 using Microsoft.VisualBasic.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Log = Serilog.Log;
 
 namespace gcutech.Controllers
 {
@@ -17,6 +19,7 @@ namespace gcutech.Controllers
         public AccountController(IAccountBusiness<User> accountService)
         {
             this._accountService = accountService;
+            
         }
         public ViewResult Login()
         {
@@ -34,12 +37,23 @@ namespace gcutech.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction("Register");
+                }
                 _accountService.RegisterUser(user);
 
                 return RedirectToAction("Index", "Home");
             }catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                var logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.File("~/logs/logs.txt")
+                    .CreateLogger();
+
+                logger.Information(e.Message);
+
+                //TODO MAKE SURE THIS ISN'T A 302 REDIRECT
                 return RedirectToAction("Register");
             }
            
@@ -60,17 +74,33 @@ namespace gcutech.Controllers
             }
             catch (LoginFailedException e)
             {
-                Console.WriteLine(e.Message);
-                ViewBag.ErrorMessage = "Your password was incorrect.";
+                var logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.File("~/logs/logs.txt")
+                    .CreateLogger();
+
+                logger.Information(e.Message);
                 return RedirectToAction("Login");
             }
             catch(RecordNotFoundException e)
             {
+                var logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.File("~/logs/logs.txt")
+                    .CreateLogger();
+
+                logger.Information(e.Message);
                 ViewBag.ErrorMessage = "User does not exist.";
                 return RedirectToAction("Login");
             }
             catch(Exception e)
             {
+                var logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.File("~/logs/logs.txt")
+                    .CreateLogger();
+
+                logger.Information(e.Message);
                 return RedirectToAction("Login");
             }
 

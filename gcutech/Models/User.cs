@@ -21,6 +21,11 @@ namespace gcutech.Models
         [StringLength(100, ErrorMessage = "Email is too long.")]
         public string _email { get; set; }
 
+        public int _studentID { get; set; }
+        public int _adminLevel { get; set; }
+
+        public string _admin_Title { get; set; }
+
         public Credentials _credentials { get; set; }
 
         public User()
@@ -32,11 +37,14 @@ namespace gcutech.Models
         {
             this._credentials = credentials;
         }
-        public User(int UserId, string FullName, string Email, Credentials credentials)
+        public User(int UserId, string FullName, string Email, int studentID, int adminLevel, string adminTitle,  Credentials credentials)
         {
             this._userId = UserId;
             this._fullName = FullName;
             this._email = Email;
+            this._studentID = studentID;
+            this._adminLevel = adminLevel;
+            this._admin_Title = adminTitle;
             this._credentials = credentials;
         }
     }

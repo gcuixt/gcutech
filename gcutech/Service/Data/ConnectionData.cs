@@ -6,18 +6,19 @@ using System.Web;
 
 namespace gcutech.Service.Data
 {
-    internal class ConnectionData
+    public class ConnectionData
     {
-        private static string _SqlConnectionString;
+        private string _sqlConnectionString;
 
-        internal ConnectionData()
+        public ConnectionData()
         {
-            _SqlConnectionString = "Server=localhost;Database=master;Trusted_Connection=True;";
+            this._sqlConnectionString = "Data Source=DESKTOP-98ADUJO;Database=gcuixt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //this._sqlConnectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
         }
 
-        internal static SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
-            return new SqlConnection(_SqlConnectionString);
+            return new SqlConnection(_sqlConnectionString);
         }
     }
 }

@@ -11,28 +11,31 @@ namespace gcutech.Service.Data
 {
     public class AccountData : ICrud<User>
     {
-        private ConnectionData _ConnectionData;
+        private ConnectionData _connectionData;
 
         public AccountData()
         {
-            this._ConnectionData = new ConnectionData();
+            this._connectionData = new ConnectionData();
         }
+
         public void CreateT(User model)
         {
             try
             {
-                string queryString = String.Format("INSERT INTO [gcuixt].[dbo].[user] ([FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD]) VALUES ('{0}', '{1}', '{2}', '{3}')",
-                    model._fullName,
-                    model._email,
-                    model._credentials._userName,
-                    model._credentials._password);
-                string connectionString = "Data Source=DESKTOP-98ADUJO;Database=gcuixt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-                //string connectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
-
-                using(SqlConnection connection = new SqlConnection(connectionString))
+                using(SqlConnection connection = _connectionData.GetConnection())
+                using (SqlCommand command = connection.CreateCommand())
                 {
-                    SqlCommand command = new SqlCommand(queryString, connection);
-                    
+
+                    command.CommandText = @"INSERT INTO [gcuixt].[dbo].[user] " +
+                    "([FULL_NAME], [EMAIL], [STUDENT_ID], [USER_NAME], [PASSWORD]) " +
+                    "VALUES (:fullname, :email, :studentid, :username, :password)";
+
+                    command.Parameters.Add(":fullname", SqlDbType.NVarChar, 50).Value = model._fullName;
+                    command.Parameters.Add(":email", SqlDbType.NVarChar, 100).Value = model._email;
+                    command.Parameters.Add(":studentid", SqlDbType.Int).Value = model._studentID;
+                    command.Parameters.Add(":username", SqlDbType.NVarChar, 20).Value = model._credentials._userName;
+                    command.Parameters.Add(":password", SqlDbType.NVarChar, 64).Value = model._credentials._password;
+
                     connection.Open();
 
                     command.Prepare();
@@ -65,14 +68,13 @@ namespace gcutech.Service.Data
                     "[FULL_NAME], " +
                     "[EMAIL], " +
                     "[USER_NAME], " +
+                    "[STUDENT_ID]" +
                     "[PASSWORD] " +
                     "FROM [gcuixt].[dbo].[user] " +
                     "WHERE [USER_NAME] = '{0}'",
                     model._userName);
 
-                string connectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
-
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = _connectionData.GetConnection())
                 {
                     SqlCommand command = new SqlCommand(queryString, connection);
 
@@ -87,7 +89,8 @@ namespace gcutech.Service.Data
                             temp._userId = reader.GetInt32(0);
                             temp._fullName = reader.GetString(1);
                             temp._email = reader.GetString(2);
-                            temp._credentials = new Credentials(reader.GetString(3), reader.GetString(4));
+                            temp._studentID = reader.GetInt32(3);
+                            temp._credentials = new Credentials(reader.GetString(4), reader.GetString(5));
 
                             reader.Close();
                             

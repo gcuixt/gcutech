@@ -1,5 +1,6 @@
 using Bootstrap;
 using gcutech.App_Start;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,6 @@ namespace gcutech
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             UnityConfig.RegisterTypes(UnityConfig.Container);
-            
         }
     }
 }
