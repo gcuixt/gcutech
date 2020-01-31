@@ -6,7 +6,13 @@
     @Scripts.Render("~/Scripts")
 </head>
 <body>
-    @RenderPage("~/Views/Shared/_NavBar.cshtml")
-    @RenderBody()
+    <div class="fixed-top-center">
+        @RenderPage("~/Views/Shared/_NavBar.cshtml")
+    </div>
+        
+
+    
+        @RenderBody()
+
 </body>
 </html>
