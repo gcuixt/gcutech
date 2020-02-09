@@ -24,7 +24,7 @@ namespace gcutech.Service.Business
         public User AuthenticateUser(Credentials model)
         {
             //Send credentials to database and get user
-            User dbModel = _accountData.ReadT(model);
+            User dbModel = this._accountData.ReadT(model);
 
             //Hash the credential password for comparison
             model._password = HashPassword(model._password);

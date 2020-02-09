@@ -41,6 +41,8 @@ namespace gcutech
         {
             container.RegisterType<IAccountBusiness<User>, AccountBusiness>();
             container.RegisterType<ICrud<User>, AccountData>();
+            container.RegisterType<ICrud<ChallengeCode>, ChallengeCodeData>();
+            container.RegisterType<IAttendanceService, AttendanceService>();
         }
     }
 }

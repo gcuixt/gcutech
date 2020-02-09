@@ -2,17 +2,21 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/Scripts")
 </head>
-<body>
-    <div class="fixed-top-center">
-        @RenderPage("~/Views/Shared/_NavBar.cshtml")
+<body class="ribbed-violet">
+    <div class="container page-wrap px-0 bg-white">
+        <div>
+            @RenderPage("~/Views/Shared/_NavBar.cshtml")
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+        <div>
+
+        </div>
     </div>
-        
-
-    
-        @RenderBody()
-
 </body>
 </html>

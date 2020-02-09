@@ -20,6 +20,8 @@ namespace gcutech.Service.Data
         /**
          * <summary></summary>
          */
+        T ReadT(T model);
+
         T ReadT(Credentials model);
         List<T> ReadAllT(T model);
         void UpdateT(T model);

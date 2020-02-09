@@ -12,8 +12,8 @@ namespace gcutech.Service.Data
 
         public ConnectionData()
         {
-            //this._sqlConnectionString = "Data Source=DESKTOP-98ADUJO;Database=gcuixt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            this._sqlConnectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
+            //this._sqlConnectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
+            this._sqlConnectionString = "Server=localhost;Database=master;Trusted_Connection=True;";    //Nathan's desktop computer
         }
 
         public SqlConnection GetConnection()

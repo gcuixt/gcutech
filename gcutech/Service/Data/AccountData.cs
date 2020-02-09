@@ -55,7 +55,7 @@ namespace gcutech.Service.Data
 
             } catch(Exception e)
             {
-                throw new RegisrationFailedException(e.Message);
+                throw new RecordNotCreatedException(e.Message);
             }
         }
 
@@ -104,6 +104,11 @@ namespace gcutech.Service.Data
             throw new NotImplementedException();
         }
 
+        public User ReadT(User model)
+        {
+            throw new NotImplementedException();
+        }
+
         /**
         * <see cref="ICrud{T}"/>
         */
@@ -118,10 +123,9 @@ namespace gcutech.Service.Data
                 using(SqlCommand command = connection.CreateCommand())
                 {
                     //write the sql script to the command
-                    command.CommandText = @"select [USER_ID],[FULL_NAME],[EMAIL],[USER_NAME],[PASSWORD],[ADMIN_LEVEL],[ADMIN_TITLE] 
-                       from[gcuixt].[dbo].[user]
-                       inner join[gcuixt].[dbo].[admin] on[gcuixt].[dbo].[user].[ADMIN_ID] = [gcuixt].[dbo].[admin].[ADMIN_ID]
-                       where[gcuixt].[dbo].[user].[USER_NAME] = @username";
+                    command.CommandText = @"select u.[USER_ID], [FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD], [ADMIN_LEVEL], [ADMIN_TITLE]
+	                from [gcuixt].[dbo].[user] AS u left join [gcuixt].[dbo].[admin] AS a ON u.[USER_ID] = a.[USER_ID]
+	                where [USER_NAME] = @username";
 
                     //add in parameters to the sql script
                     command.Parameters.Add("@username", SqlDbType.NVarChar, 20).Value = model._userName;
@@ -144,7 +148,7 @@ namespace gcutech.Service.Data
                         temp._email = reader.GetString(2);
                         temp._credentials = new Credentials(reader.GetString(3), reader.GetString(4));
                         temp._adminLevel = reader.GetInt32(5);
-                        temp._admin_Title = reader.GetString(6);
+                        temp._adminTitle = reader.GetString(6);
 
                         //Close the reader
                         reader.Close();
@@ -165,7 +169,7 @@ namespace gcutech.Service.Data
             }
             catch(Exception e)
             {
-                throw new RecordNotFoundException(e.Message);
+                throw new RecordNotFoundException(e.Message, e.InnerException);
             }
         }
 

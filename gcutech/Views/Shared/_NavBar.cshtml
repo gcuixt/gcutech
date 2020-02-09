@@ -2,13 +2,13 @@
 @{ 
    User principal = (User)HttpContext.Current.Session["principal"];
 }
-
-    <ul class="h-menu bg-darkViolet">
+<nav>
+    <ul class="h-menu mx-0 bg-black">
         @{
             if ((HttpContext.Current.Session["principal"]) != null)
             {
                 <li>
-                    <a href="" class="brand no-hover bg-lightViolet">
+                    <a href="" class="brand no-hover bg-black fg-white">
                         <span class="p-2">
                             <b>Hello:</b> @principal._fullName
                         </span>
@@ -17,38 +17,54 @@
             }
         }
 
-        <li class="bg-lightViolet item-separator"><a href="@Url.Action("Index", "Home")">Home</a></li>
-        <li class="bg-lightViolet"><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
-        <li class="bg-lightViolet"><a href="@Url.Action("About", "Home")">About Us</a></li>
-        <li class="bg-lightViolet">
-            <a href="" class="dropdown-toggle">Committees</a>
-            <ul class="d-menu bg-lightViolet" data-role="dropdown" data-effect="slide" data-duration="300">
-                <li><a href="#">Fundraiser</a></li>
-                <li><a href="#">Defcon</a></li>
-                <li><a href="#">Security</a></li>
-                <li><a href="#">ISACA</a></li>
-                <li><a href="#">Infrastructure</a></li>
-                <li><a href="#">Hardware</a></li>
-                <li><a href="#">Software</a></li>
-                <li><a href="#">Girls Who Code</a></li>
-            </ul>
-        </li>
-        <li class="bg-lightViolet">
+        <li class="fg-white bg-hover-light3 item-separator"><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li class="fg-white bg-hover-light3"><a href="@Url.Action("About", "Home")">About Us</a></li>
+        <!--<li class="fg-white bg-hover-light3">
+        <a href="" class="dropdown-toggle">Committees</a>
+        <ul class="d-menu fg-white" data-role="dropdown" data-effect="slide" data-duration="300">
+        <li><a href="#">Fundraiser</a></li>
+        <li><a href="#">Defcon</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">ISACA</a></li>
+        <li><a href="#">Infrastructure</a></li>
+        <li><a href="#">Hardware</a></li>
+        <li><a href="#">Software</a></li>
+        <li><a href="#">Girls Who Code</a></li>
+        </ul>
+    </li>  -->
+        <li class="fg-white bg-hover-light3">
             <a href="" class="dropdown-toggle">Account</a>
-            <ul class="d-menu bg-lightViolet" data-role="dropdown" data-effect="slide" data-duration="300">
+            <ul class="d-menu bg-black fg-white" data-role="dropdown" data-effect="slide" data-duration="300">
                 @{
                     if ((HttpContext.Current.Session["isLoggedIn"]) == null)
                     {
-                        <li><a href="@Url.Action("Login", "Account")">Login</a></li>
-                        <li><a href="@Url.Action("Register", "Account")">Register</a></li>
+                        <li class="bg-hover-light3"><a href="@Url.Action("Login", "Account")">Login</a></li>
+                        <li class="bg-hover-light3"><a href="@Url.Action("Register", "Account")">Register</a></li>
                     }
                     else
                     {
-                        <li><a href="@Url.Action("AccountInfo", "Account")">Account</a></li>
-                        <li><a href="@Url.Action("OnLogout", "Account")">Logout</a></li>
+                        <li class="bg-hover-light3"><a href="@Url.Action("AccountInfo", "Account")">Account</a></li>
+                        <li class="bg-hover-light3"><a href="@Url.Action("OnLogout", "Account")">Logout</a></li>
+                        <li class="bg-hover-light3"><a href="@Url.Action("CheckIn", "Attendance")">Check In</a></li>
                     }
                 }
-                <li><a href="#">Check In</a></li>
+
             </ul>
         </li>
+        @{
+            if ((HttpContext.Current.Session["isLoggedIn"]) != null)
+            {
+                if (principal._adminLevel >= 3
+                || principal._adminTitle == "Secretary")
+                {
+                    <li class="fg-white bg-hover-light3">
+                        <a href="" class="dropdown-toggle">Attendance</a>
+                        <ul class="d-menu bg-black fg-white" data-role="dropdown" data-effect="slide" data-duration="300">
+                            <li class="bg-hover-light3"><a href="@Url.Action("CreateToken", "Attendance")">Generate Token</a></li>
+                        </ul>
+                    </li>
+                }
+            }
+        }
     </ul>
+</nav>

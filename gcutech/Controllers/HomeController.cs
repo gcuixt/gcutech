@@ -13,11 +13,6 @@ namespace gcutech.Controllers
             return View();
         }
 
-        public ViewResult Contact()
-        {
-            return View();
-        }
-
         public ViewResult About()
         {
             return View();

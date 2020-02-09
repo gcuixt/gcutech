@@ -1,0 +1,19 @@
+﻿@model gcutech.Models.ChallengeCode
+
+@{
+    ViewBag.Title = "CreateToken";
+}
+
+<h2>CreateToken</h2>
+
+
+@using (Html.BeginForm("GenerateToken", "Attendance")) 
+{
+    @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+}
+

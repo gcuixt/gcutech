@@ -23,7 +23,7 @@ namespace gcutech.Models
 
         public int _adminLevel { get; set; }
 
-        public string _admin_Title { get; set; }
+        public string _adminTitle { get; set; }
 
         public Credentials _credentials { get; set; }
 
@@ -42,7 +42,7 @@ namespace gcutech.Models
             this._fullName = FullName;
             this._email = Email;
             this._adminLevel = adminLevel;
-            this._admin_Title = adminTitle;
+            this._adminTitle = adminTitle;
             this._credentials = credentials;
         }
     }

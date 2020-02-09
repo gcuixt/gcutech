@@ -17,7 +17,8 @@ namespace gcutech.App_Start
                 "~/Content/metro-icons.min.css",
                 "~/Content/metro-rtl.min.css",
                 "~/Content/metro-third.min.css",
-                "~/Content/metro.min.css")
+                "~/Content/metro.min.css",
+                "~/Content/muse.css,")
                 .IncludeDirectory("~/Content", ".css"));
 
             bundles.Add(new ScriptBundle("~/Scripts").Include(
