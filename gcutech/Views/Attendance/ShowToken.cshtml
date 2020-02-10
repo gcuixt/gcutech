@@ -1,8 +1,25 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ShowToken";
 }
 
 <h1>Today's Token</h1>
 <h2>@ViewBag.Token</h2>
+
+@{
+    if ((HttpContext.Current.Session["isLoggedIn"]) == null)
+    {
+        Response.Redirect("~/");
+    }
+    else
+    {
+        gcutech.Models.User principal = (gcutech.Models.User)HttpContext.Current.Session["principal"];
+        if (principal._adminLevel != 3 &&
+        principal._adminLevel != 4 &&
+        principal._adminTitle != "Secretary")
+        {
+            Response.Redirect("~/");
+        }
+    }
+
+}
 

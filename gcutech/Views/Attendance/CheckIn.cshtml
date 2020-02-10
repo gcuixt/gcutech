@@ -5,10 +5,10 @@
 }
 
 
-@using (Html.BeginForm("CheckIn", "Attendance")) 
+@using (Html.BeginForm("CheckIn", "Attendance"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ChallengeCode</h4>
         <hr />
@@ -27,5 +27,12 @@
             </div>
         </div>
     </div>
+}
+
+@{
+    if ((HttpContext.Current.Session["isLoggedIn"]) == null)
+    {
+        Response.Redirect("~/");
+    }
 }
 

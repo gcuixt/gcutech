@@ -53,6 +53,10 @@ namespace gcutech.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
                 User principal = (User)HttpContext.Session["principal"];
                 this._attendanceService.CheckIn(code, principal);
                 return View("~/Views/Home/Index.cshtml");
@@ -89,7 +93,11 @@ namespace gcutech.Controllers
         {
             try
             {
-               ViewData["attendance"] = this._attendanceService.GetAttendance(code._date);
+                if (!ModelState.IsValid)
+                {
+                    return View("Attendance");
+                }
+                ViewData["attendance"] = this._attendanceService.GetAttendance(code._date);
                 return View("Attendance");
             }catch(Exception e)
             {
@@ -104,6 +112,10 @@ namespace gcutech.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("Attendance");
+                }
                 this._attendanceService.DownloadAttendance(code._date);
                 return View("Attendance");
             }
