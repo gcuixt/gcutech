@@ -76,5 +76,25 @@ namespace gcutech.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult Attendance()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult getAttendance(ChallengeCode code)
+        {
+            try
+            {
+               ViewData["attendance"] = this._attendanceService.GetAttendance(code._date);
+                return View("Attendance");
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return View("Attendance");
+            }
+        }
     }
 }

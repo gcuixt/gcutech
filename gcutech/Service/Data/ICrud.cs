@@ -23,7 +23,7 @@ namespace gcutech.Service.Data
         T ReadT(T model);
 
         T ReadT(Credentials model);
-        List<T> ReadAllT(T model);
+        List<T> ReadAllT();
         void UpdateT(T model);
         void DeleteT(T model);
     }

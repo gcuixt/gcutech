@@ -48,7 +48,7 @@ namespace gcutech.Service.Data
             }
             catch (Exception e)
             {
-                throw new RecordNotCreatedException(e.Message);
+                throw new RecordNotCreatedException("We're sorry, something went wrong when checking you in.");
             }
         }
 
@@ -57,9 +57,74 @@ namespace gcutech.Service.Data
             throw new NotImplementedException();
         }
 
-        public List<User> ReadAllT(User model)
+        public List<User> ReadAllT()
         {
             throw new NotImplementedException();
+        }
+        public List<User> ReadAllT(DateTime date)
+        {
+            //Create temp model to store the data
+            List<User> attendance = new List<User>();
+            try
+            {
+                //Create the connection and command
+                using (SqlConnection connection = _connectionData.GetConnection())
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    //write the sql script to the command
+                    command.CommandText = @"Select [FULL_NAME], [EMAIL], [USER_NAME] FROM [gcuixt].[dbo].[checkedin] as c
+	                                        left join [gcuixt].[dbo].[user] as u on c.[USER_ID] = u.[USER_ID]
+	                                        where [CHECKED_IN] = FORMAT(@date, 'd')";
+
+                    //add in parameters to the sql script
+                    command.Parameters.Add("@date", SqlDbType.DateTime).Value = date;
+
+                    //open connection
+                    connection.Open();
+
+                    //prepare the statement
+                    command.Prepare();
+
+                    //read the data recieved
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        //Default user to add data too
+                        User temp;
+
+                        //input data into model
+                        if(reader.HasRows)
+                        {
+
+                            //read the next line
+                            while (reader.Read())
+                            {
+                                temp = new User(
+                                -1,
+                                reader.GetString(0),
+                                reader.GetString(1),
+                                -1,
+                                "",
+                                new Credentials(reader.GetString(2), ""));
+
+                                attendance.Add(temp);
+                            }
+                        }
+
+                        //Close the reader
+                        reader.Close();
+                    }
+
+                    //cose connection
+                    connection.Close();
+                }
+
+                //return the model
+                return attendance;
+            }
+            catch (Exception e)
+            {
+                throw new RecordNotFoundException(e.Message, e.InnerException);
+            }
         }
 
         public User ReadT(User model)
@@ -106,7 +171,7 @@ namespace gcutech.Service.Data
             }
             catch (Exception e)
             {
-                throw new RecordNotCreatedException(e.Message);
+                throw new RecordNotFoundException("Technical error, please try again later. Contact support if the proplem persists.");
             }
         }
 

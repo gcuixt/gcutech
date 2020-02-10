@@ -65,7 +65,7 @@ namespace gcutech.Service.Data
         /**
          * <see cref="ICrud{T}"/>
          */
-        public List<ChallengeCode> ReadAllT(ChallengeCode model)
+        public List<ChallengeCode> ReadAllT()
         {
             throw new NotImplementedException();
         }

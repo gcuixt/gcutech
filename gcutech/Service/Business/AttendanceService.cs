@@ -11,7 +11,7 @@ namespace gcutech.Service.Business
     public class AttendanceService : IAttendanceService
     {
         private ICrud<ChallengeCode> _challengeCodeData;
-        private ICrud<User> _attendanceData;
+        private AttendanceData _attendanceData;
 
         public AttendanceService(ICrud<ChallengeCode> challengeCodeData)
         {
@@ -52,7 +52,7 @@ namespace gcutech.Service.Business
 
         public List<User> GetAttendance(DateTime date)
         {
-            throw new NotImplementedException();
+            return this._attendanceData.ReadAllT(date);
         }
 
         public string RecieveToken()

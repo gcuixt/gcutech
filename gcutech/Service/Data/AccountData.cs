@@ -99,7 +99,7 @@ namespace gcutech.Service.Data
         /**
         * <see cref="ICrud{T}"/>
         */
-        public List<User> ReadAllT(User model)
+        public List<User> ReadAllT()
         {
             throw new NotImplementedException();
         }
