@@ -3,18 +3,17 @@
 @{
     ViewBag.Title = "Attendance";
 }
-@{ 
+@{
     var attendance = (List<gcutech.Models.User>)ViewBag.Attendance;
 }
 
 <h2>Attendance</h2>
 
-@using (Html.BeginForm("getAttendance", "Attendance")) 
+@using (Html.BeginForm("getAttendance", "Attendance"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>ChallengeCode</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -33,8 +32,32 @@
     </div>
 }
 
+<h2>Download</h2>
+@using (Html.BeginForm("downloadAttendance", "Attendance"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model._date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model._date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model._date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Open in Excel" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
 <h2>Test</h2>
-@{ if(attendance != null)
+@{ if (attendance != null)
     {
         <table>
             <thead>
@@ -45,17 +68,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(gcutech.Models.User u in attendance)
+                @foreach (gcutech.Models.User u in attendance)
                 {
-                <tr>
-                    <td>@u._fullName</td>
-                    <td>@u._credentials._userName</td>
-                    <td>@u._email</td>
-                </tr>
+                    <tr>
+                        <td>@u._fullName</td>
+                        <td>@u._credentials._userName</td>
+                        <td>@u._email</td>
+                    </tr>
                 }
             </tbody>
         </table>
-        
+
     }
-    
+
 }

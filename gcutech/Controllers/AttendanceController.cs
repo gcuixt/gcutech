@@ -84,6 +84,7 @@ namespace gcutech.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult getAttendance(ChallengeCode code)
         {
             try
@@ -91,6 +92,22 @@ namespace gcutech.Controllers
                ViewData["attendance"] = this._attendanceService.GetAttendance(code._date);
                 return View("Attendance");
             }catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return View("Attendance");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult downloadAttendance(ChallengeCode code)
+        {
+            try
+            {
+                this._attendanceService.DownloadAttendance(code._date);
+                return View("Attendance");
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return View("Attendance");

@@ -38,7 +38,33 @@ namespace gcutech.Service.Business
 
         public void DownloadAttendance(DateTime date)
         {
-            throw new NotImplementedException();
+            var excApp = new Microsoft.Office.Interop.Excel.Application();
+
+            excApp.Visible = true;
+
+            excApp.Workbooks.Add();
+
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)excApp.ActiveSheet;
+
+
+            worksheet.Cells[1, "A"] = "Full Name";
+            worksheet.Cells[1, "B"] = "UserName";
+            worksheet.Cells[1, "C"] = "Email";
+
+            List<User> users = this._attendanceData.ReadAllT(date);
+
+            var row = 1;
+            foreach(var u in users)
+            {
+                row++;
+                worksheet.Cells[row, "A"] = u._fullName;
+                worksheet.Cells[row, "B"] = u._credentials._userName;
+                worksheet.Cells[row, "C"] = u._email;
+            }
+
+            worksheet.Columns[1].AutoFit();
+            worksheet.Columns[2].AutoFit();
+            worksheet.Columns[3].AutoFit();
         }
 
         public void GenerateToken()
