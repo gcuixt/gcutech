@@ -35,6 +35,7 @@ namespace gcutech.Controllers
             }
             catch(Exception e)
             {
+                Console.WriteLine(e.StackTrace);
                 return View("CreateToken");
             }
             
@@ -54,6 +55,20 @@ namespace gcutech.Controllers
             {
                 User principal = (User)HttpContext.Session["principal"];
                 this._attendanceService.CheckIn(code, principal);
+                return View("~/Views/Home/Index.cshtml");
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ShowToken()
+        {
+            try
+            {
+                ViewBag.Token = this._attendanceService.RecieveToken();
                 return View();
             }catch(Exception e)
             {

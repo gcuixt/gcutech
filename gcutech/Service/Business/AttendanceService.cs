@@ -24,8 +24,11 @@ namespace gcutech.Service.Business
 
             if(code._code == correctCode)
             {
+                if(this._attendanceData.ReadT(user)._userId != -1)
+                {
+                    throw new AlreadyCheckedInException("You have already been checked in.");
+                }
                 this._attendanceData.CreateT(user);
-                
             }
             else
             {
@@ -54,7 +57,10 @@ namespace gcutech.Service.Business
 
         public string RecieveToken()
         {
-            throw new NotImplementedException();
+            //Get today's date as a code model
+            ChallengeCode challengeCode = new ChallengeCode();
+            //Pass model to get today's token and return today's token.
+            return this._challengeCodeData.ReadT(challengeCode)._code;
         }
     }
 }

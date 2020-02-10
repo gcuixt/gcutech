@@ -86,7 +86,7 @@ namespace gcutech.Service.Data
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     //write the sql script to the command
-                    command.CommandText = @"SELECT * FROM [gcuixt].[dbo].[challengecode] WHERE convert(nvarchar(10), [DATE], 23) = = @date";
+                    command.CommandText = @"SELECT * FROM [gcuixt].[dbo].[challengecode] WHERE convert(nvarchar(10), [DATE], 23) = @date";
 
                     //add in parameters to the sql script
                     command.Parameters.Add("@date", SqlDbType.NVarChar, 10).Value = model._date.ToString("yyyy-MM-dd");

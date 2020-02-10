@@ -295,6 +295,7 @@
     <Compile Include="Service\Data\ChallengeCodeData.cs" />
     <Compile Include="Service\Exceptions\IncorrectCodeException.cs" />
     <Compile Include="Service\Exceptions\RecordNotCreatedException.cs" />
+    <Compile Include="Service\Exceptions\AlreadyCheckedInException.cs" />
     <Compile Include="Service\Exceptions\UpdateFailedException.cs" />
     <Compile Include="Service\Exceptions\DeleteFailedException.cs" />
     <Compile Include="Service\Exceptions\RecordNotFoundException.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Views\Account\Update.cshtml" />
     <Content Include="Views\Attendance\CreateToken.cshtml" />
     <Content Include="Views\Attendance\CheckIn.cshtml" />
+    <Content Include="Views\Attendance\ShowToken.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

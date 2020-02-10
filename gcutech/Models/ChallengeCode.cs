@@ -1,6 +1,7 @@
 ﻿using gcutech.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,7 +9,10 @@ namespace gcutech.Models
 {
     public class ChallengeCode
     {
+        [Display(Name="Date")]
         public DateTime _date { get; set; }
+
+        [Display(Name="Validation Code")]
         public string _code { get; set; }
 
         public ChallengeCode()

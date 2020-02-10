@@ -64,7 +64,50 @@ namespace gcutech.Service.Data
 
         public User ReadT(User model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User temp = new User();
+                //Create connection and command
+                using (SqlConnection connection = _connectionData.GetConnection())
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    //Genereate sql script into command
+                    command.CommandText = @"select [USER_ID], [CHECKED_IN] from [gcuixt].[dbo].[checkedin] WHERE [USER_ID] = @userid 
+                                            and [CHECKED_IN] = Format(GETDATE(), 'd');";
+
+                    //Add parameters to the command string
+                    command.Parameters.Add("@userid", SqlDbType.Int).Value = model._userId;
+
+                    //Open the connection
+                    connection.Open();
+
+                    //Prepare the statement
+                    command.Prepare();
+
+                    //Execute the command
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.HasRows)
+                        {
+                            temp._userId = reader.GetInt32(0);
+                        }
+                        else
+                        {
+                            temp._userId = -1;
+                        }
+                        
+                    }
+
+                    //close the connection
+                    connection.Close();
+
+                    return temp;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new RecordNotCreatedException(e.Message);
+            }
         }
 
         public User ReadT(Credentials model)
