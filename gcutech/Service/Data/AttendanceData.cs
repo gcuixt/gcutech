@@ -48,7 +48,7 @@ namespace gcutech.Service.Data
             }
             catch (Exception e)
             {
-                throw new RecordNotCreatedException("We're sorry, something went wrong when checking you in.");
+                throw new RecordNotCreatedException("We're sorry, something went wrong checking you in.");
             }
         }
 
@@ -123,7 +123,7 @@ namespace gcutech.Service.Data
             }
             catch (Exception e)
             {
-                throw new RecordNotFoundException(e.Message, e.InnerException);
+                throw new RecordNotFoundException("No Users to display");
             }
         }
 

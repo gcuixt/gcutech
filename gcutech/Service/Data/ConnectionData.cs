@@ -12,8 +12,8 @@ namespace gcutech.Service.Data
 
         public ConnectionData()
         {
-            //this._sqlConnectionString = "Server=localhost;Database=gcuixt;Trusted_Connection=True;";
-            this._sqlConnectionString = "Server=localhost;Database=master;Trusted_Connection=True;";    //Nathan's desktop computer
+            this._sqlConnectionString = "Server=localhost;Database=master;Trusted_Connection=True;";    //Nathan's Laptop
+            //this._sqlConnectionString = "Server=localhost;Database=master;Trusted_Connection=True;";    //Nathan's desktop computer
         }
 
         public SqlConnection GetConnection()

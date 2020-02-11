@@ -50,7 +50,7 @@ namespace gcutech.Service.Data
                 }
             }catch(Exception e)
             {
-                throw new RecordNotCreatedException(e.Message);
+                throw new RecordNotCreatedException("There is likely already a key generated for today, check with admin if not.");
             }
         }
 
@@ -111,9 +111,8 @@ namespace gcutech.Service.Data
 
                             //throw error if nothing returned
                         }
-                        else 
-                        {
-                            throw new RecordNotFoundException("User name was not found.");
+                        else{
+                            temp._code = "";
                         }
 
                         //Close the reader
@@ -129,7 +128,7 @@ namespace gcutech.Service.Data
             }
             catch (Exception e)
             {
-                throw new RecordNotFoundException(e.Message);
+                throw new RecordNotFoundException("Could not read a token in for that date.");
             }
         }
 

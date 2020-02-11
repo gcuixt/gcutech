@@ -35,6 +35,7 @@ namespace gcutech.Controllers
             }
             catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View("CreateToken");
             }
@@ -62,6 +63,7 @@ namespace gcutech.Controllers
                 return View("~/Views/Home/Index.cshtml");
             }catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View();
             }
@@ -76,6 +78,7 @@ namespace gcutech.Controllers
                 return View();
             }catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View();
             }
@@ -101,6 +104,7 @@ namespace gcutech.Controllers
                 return View("Attendance");
             }catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View("Attendance");
             }
@@ -121,6 +125,7 @@ namespace gcutech.Controllers
             }
             catch (Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View("Attendance");
             }

@@ -55,7 +55,7 @@ namespace gcutech.Service.Data
 
             } catch(Exception e)
             {
-                throw new RecordNotCreatedException(e.Message);
+                throw new RecordNotCreatedException("We're sorry, something went wrong creating your account.");
             }
         }
 
@@ -123,7 +123,7 @@ namespace gcutech.Service.Data
                 using(SqlCommand command = connection.CreateCommand())
                 {
                     //write the sql script to the command
-                    command.CommandText = @"select u.[USER_ID], [FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD], [ADMIN_LEVEL], [ADMIN_TITLE]
+                    command.CommandText = @"select u.[USER_ID], [FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD], coalesce([ADMIN_LEVEL], -1), coalesce([ADMIN_TITLE], 'User')
 	                from [gcuixt].[dbo].[user] AS u left join [gcuixt].[dbo].[admin] AS a ON u.[USER_ID] = a.[USER_ID]
 	                where [USER_NAME] = @username";
 
@@ -156,7 +156,7 @@ namespace gcutech.Service.Data
                         //throw error if nothing returned
                         if(!(temp._userId > 0))
                         {
-                            throw new RecordNotFoundException("User name was not found.");
+                            throw new RecordNotFoundException();
                         }
                     }
 
@@ -169,7 +169,7 @@ namespace gcutech.Service.Data
             }
             catch(Exception e)
             {
-                throw new RecordNotFoundException(e.Message, e.InnerException);
+                throw new RecordNotFoundException("One of you're credentials is wrong. Contact support if the issue persists.");
             }
         }
 

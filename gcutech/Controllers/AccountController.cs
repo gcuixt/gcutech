@@ -58,6 +58,7 @@ namespace gcutech.Controllers
                 return View("~/Views/Home/Index.cshtml");
             }catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
 
                 return View("Register");
@@ -80,6 +81,7 @@ namespace gcutech.Controllers
             }
             catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return RedirectToAction("Login");
             }
@@ -105,6 +107,7 @@ namespace gcutech.Controllers
                 return View("AccountInfo", user);
             }catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View("Update");
             }
@@ -124,6 +127,7 @@ namespace gcutech.Controllers
             }
             catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 Console.WriteLine(e.StackTrace);
                 return View("AccountInfo", principal);
             }

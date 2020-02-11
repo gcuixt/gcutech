@@ -11,6 +11,9 @@
         <div>
             @RenderPage("~/Views/Shared/_NavBar.cshtml")
         </div>
+        <div id="errormessage">
+            @ViewBag.Error
+        </div>
         <div>
             @RenderBody()
         </div>
