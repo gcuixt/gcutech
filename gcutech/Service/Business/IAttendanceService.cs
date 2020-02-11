@@ -13,7 +13,7 @@ namespace gcutech.Service.Business
         string RecieveToken();
         void CheckIn(ChallengeCode code, User user);
         List<User> GetAttendance(DateTime date);
-        void DownloadAttendance(DateTime date);
+        List<User> DownloadAttendance(DateTime date);
 
     }
 }

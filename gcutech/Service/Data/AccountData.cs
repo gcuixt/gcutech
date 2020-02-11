@@ -55,6 +55,9 @@ namespace gcutech.Service.Data
 
             } catch(Exception e)
             {
+                Console.WriteLine("From AccountData@CreateT");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                 throw new RecordNotCreatedException("We're sorry, something went wrong creating your account.");
             }
         }

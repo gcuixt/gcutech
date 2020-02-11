@@ -1,7 +1,9 @@
-﻿using gcutech.Models;
+﻿using ClosedXML.Excel;
+using gcutech.Models;
 using gcutech.Service.Business;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -120,8 +122,28 @@ namespace gcutech.Controllers
                 {
                     return View("Attendance");
                 }
-                this._attendanceService.DownloadAttendance(code._date);
-                return View("Attendance");
+                List<User> attendance = this._attendanceService.DownloadAttendance(code._date);
+                XLWorkbook workbook = new XLWorkbook();
+                IXLWorksheet worksheet = workbook.Worksheets.Add("pinetech");
+                worksheet.Cell(1, 1).SetValue("Full Name");
+                worksheet.Cell(1, 2).SetValue("User Name");
+                worksheet.Cell(1, 3).SetValue("Email");
+
+                int i = 1;
+                foreach(var u in attendance)
+                {
+                    i++;
+                    worksheet.Cell(i, 1).SetValue(u._fullName);
+                    worksheet.Cell(i, 2).SetValue(u._credentials._userName);
+                    worksheet.Cell(i, 3).SetValue(u._email);
+                }
+
+                MemoryStream ms = new MemoryStream();
+                workbook.SaveAs(ms);
+                ms.Position = 0;
+
+                return new FileStreamResult(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                { FileDownloadName = "Attendance.xlsx" };
             }
             catch (Exception e)
             {
