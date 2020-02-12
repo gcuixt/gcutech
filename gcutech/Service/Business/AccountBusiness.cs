@@ -33,7 +33,7 @@ namespace gcutech.Service.Business
             if (!model._password.Equals(dbModel._credentials._password))
             {
                 //Throw exception on failed comparison
-                throw new AuthenticationFailedException();
+                throw new AuthenticationFailedException("One of your credentials is wrong. Please contact support if the issue continues.");
             }
 
             //Return the user on success
