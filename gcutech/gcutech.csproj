@@ -263,7 +263,7 @@
     <Content Include="Content\metro.min.css" />
     <Content Include="Content\muse.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\image00001.PNG" />
+    <Content Include="Images\image00001.jpg" />
     <Content Include="Images\image00002.jpg" />
     <Content Include="Images\image00003.jpg" />
     <Content Include="Images\image00004.jpg" />
