@@ -9,7 +9,7 @@ namespace gcutech.Models
     public class Credentials
     {
         [Required(ErrorMessage = "This is a required field.")]
-        [Display(Name = "UserName")]
+        [Display(Name = "User Name")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "Username must be between 5 and 20 characters.")]
         public string _userName { get; set; }
 
