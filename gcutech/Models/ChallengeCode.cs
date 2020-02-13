@@ -18,7 +18,7 @@ namespace gcutech.Models
         public ChallengeCode()
         {
             this._date = DateTime.UtcNow.Date;
-            this._code = new RandomStringGenerator().GenerateString();
+            this._code = new RandomStringGenerator().GenerateString(5);
         }
 
         public ChallengeCode(DateTime date, string code)

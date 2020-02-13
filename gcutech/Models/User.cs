@@ -10,15 +10,9 @@ namespace gcutech.Models
     {
         public int _userId { get; set; }
 
-        [Required(ErrorMessage = "This is a required field.")]
-        [Display(Name ="Full Name")]
-        [StringLength(50, MinimumLength = 5,  ErrorMessage = "Size must be between 5 and 50 characters.")]
+
         public string _fullName { get; set; }
 
-        [Required(ErrorMessage = "This is a required field.")]
-        [Display(Name = "Email")]
-        [EmailAddress(ErrorMessage = "This must be an email")]
-        [StringLength(100, ErrorMessage = "Email is too long.")]
         public string _email { get; set; }
 
         public int _adminLevel { get; set; }

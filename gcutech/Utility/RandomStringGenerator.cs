@@ -13,11 +13,11 @@ namespace gcutech.Utility
          * <summary>Generates a random 5 character string.</summary>
          * <returns>string</returns>
          */
-        public string GenerateString()
+        public string GenerateString(int length)
         {
             RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
-            byte[] code = new byte[5];
-            rngCsp.GetBytes(code, 0, 5);
+            byte[] code = new byte[length];
+            rngCsp.GetBytes(code, 0, length);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < code.Length; i++)
             {

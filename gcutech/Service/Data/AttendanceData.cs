@@ -18,6 +18,11 @@ namespace gcutech.Service.Data
             this._connectionData = new ConnectionData();
         }
 
+        public void CreateT(User model, string i)
+        {
+            throw new NotImplementedException();
+        }
+
         public void CreateT(User model)
         {
             try

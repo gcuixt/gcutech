@@ -1,6 +1,7 @@
 ﻿using gcutech.Models;
 using gcutech.Service.Data;
 using gcutech.Service.Exceptions;
+using gcutech.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,10 +67,12 @@ namespace gcutech.Service.Business
          */
         public void RegisterUser(User model)
         {
+            //Get a salt
+            string salt = new RandomStringGenerator().GenerateString(64);
             //Hash password
             model._credentials._password = HashPassword(model._credentials._password);
             //Send user to be registered.
-            _accountData.CreateT(model);
+            _accountData.CreateT(model, salt);
         }
 
         /**

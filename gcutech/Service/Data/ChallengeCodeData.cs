@@ -18,6 +18,11 @@ namespace gcutech.Service.Data
             this._connectionData = new ConnectionData();
         }
 
+        public void CreateT(ChallengeCode model, string i)
+        {
+            throw new NotImplementedException();
+        }
+
         /**
          * <see cref="ICrud{T}"/>
          */

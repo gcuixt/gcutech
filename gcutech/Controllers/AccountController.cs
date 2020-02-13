@@ -1,6 +1,7 @@
 ﻿using gcutech.Models;
 using gcutech.Service.Business;
 using gcutech.Service.Exceptions;
+using gcutech.ViewModel;
 using Microsoft.VisualBasic.Logging;
 using Serilog;
 using System;
@@ -45,7 +46,7 @@ namespace gcutech.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult OnRegister(User user)
+        public ActionResult OnRegister(RegisterModel user)
         {
             try
             {
@@ -53,7 +54,7 @@ namespace gcutech.Controllers
                 {
                     return View("Register");
                 }
-                _accountService.RegisterUser(user);
+                //_accountService.RegisterUser(user);
 
                 return View("~/Views/Home/Index.cshtml");
             }catch(Exception e)

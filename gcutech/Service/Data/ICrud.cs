@@ -16,7 +16,7 @@ namespace gcutech.Service.Data
          * <exception cref="RegisrationFailedException"></exception>
          */
         void CreateT(T model);
-
+        void CreateT(T model, string i);
         /**
          * <summary></summary>
          */

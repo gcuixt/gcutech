@@ -18,10 +18,15 @@ namespace gcutech.Service.Data
             this._connectionData = new ConnectionData();
         }
 
+        public void CreateT(User model)
+        {
+            throw new NotImplementedException();
+        }
+
         /**
          * <see cref="ICrud{T}"/>
          */
-        public void CreateT(User model)
+        public void CreateT(User model, string i)
         {
             try
             {
@@ -31,13 +36,14 @@ namespace gcutech.Service.Data
                 {
                     //Genereate sql script into command
                     command.CommandText = @"INSERT INTO [gcuixt].[dbo].[user] 
-                    ([FULL_NAME], [EMAIL], [USER_NAME], [PASSWORD]) 
-                    VALUES (@fullname, @email, @username, @password)";
+                    ([FULL_NAME], [EMAIL], [USER_NAME], [SALT], [PASSWORD]) 
+                    VALUES (@fullname, @email, @username, @salt, @password)";
 
                     //Add parameters to the command string
                     command.Parameters.Add("@fullname", SqlDbType.NVarChar, 50).Value = model._fullName;
                     command.Parameters.Add("@email", SqlDbType.NVarChar, 100).Value = model._email;
                     command.Parameters.Add("@username", SqlDbType.NVarChar, 20).Value = model._credentials._userName;
+                    command.Parameters.Add("@salt", SqlDbType.NVarChar, 64).Value = i;
                     command.Parameters.Add("@password", SqlDbType.NVarChar, 64).Value = model._credentials._password;
 
                     //Open the connection
@@ -61,6 +67,7 @@ namespace gcutech.Service.Data
                 throw new RecordNotCreatedException("We're sorry, something went wrong creating your account.");
             }
         }
+
 
         /**
          * <see cref="ICrud{T}"/>

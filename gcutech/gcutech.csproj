@@ -310,6 +310,7 @@
     <Compile Include="Service\Data\ConnectionData.cs" />
     <Compile Include="Service\Data\ICrud.cs" />
     <Compile Include="Utility\RandomStringGenerator.cs" />
+    <Compile Include="ViewModel\RegisterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
